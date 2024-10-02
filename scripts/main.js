@@ -10,16 +10,32 @@ let tiempoRegresivo = null;
 let timerInicial = 60;
 let timer = 60;
 
-let winAudio = new Audio('./sounds/win.wav');
-let clickAudio = new Audio('./sounds/click.wav');
-let lose = new Audio('./sounds/lose.wav');
-let match = new Audio('./sounds/match.wav');
-let wrong = new Audio('./sounds/wrong.wav');
+const winAudio = new Audio('./sounds/win.wav');
+const clickAudio = new Audio('./sounds/click.wav');
+const lose = new Audio('./sounds/lose.wav');
+const match = new Audio('./sounds/match.wav');
+const wrong = new Audio('./sounds/wrong.wav');
 
-let mostrarMovimientos = document.getElementById('movimientos');
-let mostrarAciertos = document.getElementById('aciertos');
-let mostrarTiempo = document.getElementById('tiempo');
-let tablero = document.getElementById('tablero'); // Hola Jhonnie, esta es la nueva variable, para poder crear el tablero, lo he hecho creando una id en un div del html
+const mostrarMovimientos = document.getElementById('movimientos');
+const mostrarAciertos = document.getElementById('aciertos');
+const mostrarTiempo = document.getElementById('tiempo');
+const tablero = document.getElementById('tablero');
+
+function recargarSeccion() {
+    const modo = document.getElementById('modo').value;
+    localStorage.setItem('modoSeleccionado', modo);
+    location.reload();
+}
+
+window.onload = function() {
+    const modoSeleccionado = localStorage.getItem('modoSeleccionado');
+    if (modoSeleccionado)
+    {
+        document.getElementById('modo').value = modoSeleccionado;
+        seleccionarModo();
+        localStorage.removeItem('modoSeleccionado');
+    }
+}
 
 let numeros = {
     "16": [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8],
@@ -27,7 +43,6 @@ let numeros = {
     "36": [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18]
 };
 
-// Aqui he puesto todo lo que es el selector de modo, y la transición de pantalla de inicio.
 const seleccionarModo = () => {
     let modo = document.getElementById('modo').value;
 
@@ -43,8 +58,20 @@ const iniciarJuego = (modo) => {
     generarTablero(numeroTarjetas.length);
     numeroTarjetas = numeroTarjetas.sort(() => { return 0.5 - Math.random() });
     console.log(numeroTarjetas);
-
-    timerInicial = modo == "36" ? 90 : 60; // Aqui, he añadido 30 segundos mas si se elige el modo difícil, porque lo he intentado con 60 segundos varias veces y era mas bien imposible...
+    switch(modo)
+    {
+        case "16":
+            timerInicial = 60;
+          break;
+        case "20":
+            timerInicial = 90;
+          break;
+        case "36":
+            timerInicial = 120
+          break; 
+        default:
+            timerInicial = 60
+      }
     timer = timerInicial;
     mostrarTiempo.innerHTML = `Tiempo: ${timer} segundos`;
 
@@ -54,7 +81,8 @@ const iniciarJuego = (modo) => {
     mostrarMovimientos.innerHTML = `Movimientos: 0`;
     mostrarAciertos.innerHTML = `Puntaje: 0`;
 
-    if (temporizador) {
+    if (temporizador)
+    {
         clearInterval(tiempoRegresivo);
         temporizador = false;
     }
@@ -62,14 +90,17 @@ const iniciarJuego = (modo) => {
 
 // Esto es lo que más me ha costado... casi 3 horas para entenderlo, es una función para crear el tablero dinámicamente, según el número de tarjetas que tenga el modo que se haya seleccionado
 const generarTablero = (totalTarjetas) => {
-    let filas = Math.sqrt(totalTarjetas);
+    let filas = Math.ceil(Math.sqrt(totalTarjetas));
     let contenido = '<table>';
 
-    for (let i = 0; i < filas; i++) {
+    for (let i = 0; i < filas; i++)
+    {
         contenido += '<tr>';
-        for (let j = 0; j < filas; j++) {
+        for (let j = 0; j < filas; j++)
+        {
             let id = i * filas + j;
-            if (id < totalTarjetas) {
+            if (id < totalTarjetas)
+            {
                 contenido += `<td><button id="${id}" onclick="destapar(${id})"></button></td>`;
             }
         }
@@ -84,8 +115,14 @@ const contarTiempo = () => {
     tiempoRegresivo = setInterval(() => {
         timer--;
         mostrarTiempo.innerHTML = `Tiempo: ${timer} Segundos`;
-        if (timer == 0) {
-            alert('Perdiste, intenta de nuevo');
+        if (timer == 0)
+        {
+            Swal.fire({
+                title: 'Has perdido',
+                text: 'Inténtalo de nuevo',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
             clearInterval(tiempoRegresivo);
             bloquearTarjetas();
             lose.play();
@@ -97,7 +134,8 @@ const bloquearTarjetas = () => {
     let modo = document.getElementById('modo').value;
     let numeroTarjetas = numeros[modo];
 
-    for (let i = 0; i < numeroTarjetas.length; i++) {
+    for (let i = 0; i < numeroTarjetas.length; i++)
+    {
         let tarjetaBloqueada = document.getElementById(i);
         tarjetaBloqueada.innerHTML = `<img src="img/${numeroTarjetas[i]}.png" alt="${numeroTarjetas[i]}">`;
         tarjetaBloqueada.disabled = true;
@@ -108,7 +146,8 @@ const destapar = (id) => {
     let modo = document.getElementById('modo').value;
     let numeroTarjetas = numeros[modo];
 
-    if (temporizador == false) {
+    if (temporizador == false)
+    {
         contarTiempo();
         temporizador = true;
     }
@@ -116,7 +155,8 @@ const destapar = (id) => {
     tarjetasDestapadas++;
     console.log(tarjetasDestapadas);
 
-    if (tarjetasDestapadas == 1) {
+    if (tarjetasDestapadas == 1)
+    {
         //mostrar primer numero
         tarjeta1 = document.getElementById(id);
         primerResultado = numeroTarjetas[id];
@@ -125,7 +165,9 @@ const destapar = (id) => {
 
         //desahabilitar la tarjeta
         tarjeta1.disabled = true;
-    } else if (tarjetasDestapadas == 2) {
+    } 
+    else if (tarjetasDestapadas == 2)
+    {
         //mostrar segundo numero
         tarjeta2 = document.getElementById(id);
         segundoResultado = numeroTarjetas[id];
@@ -137,21 +179,29 @@ const destapar = (id) => {
         movimientos++;
         mostrarMovimientos.innerHTML = `Movimientos: ${movimientos}`;
 
-        if (primerResultado == segundoResultado) {
+        if (primerResultado == segundoResultado)
+        {
             tarjetasDestapadas = 0;
 
             aciertos++;
             mostrarAciertos.innerHTML = `Puntaje: ${aciertos}`;
             match.play();
 
-            if (aciertos == numeroTarjetas.length / 2) { // Aqui he tenido que cambiar el método de identificar los aciertos que pusiste porque ahora hay mas niveles, pero vamos que es lo mismito
+            if (aciertos == numeroTarjetas.length / 2)
+            {
                 winAudio.play();
                 clearInterval(tiempoRegresivo);
-                alert(`Felicidades, ganaste en ${movimientos} movimientos y ${timerInicial - timer} segundos`);
+                Swal.fire({
+                    title: 'Felicitaciones',
+                    text: `Ganaste en ${movimientos} movimientos y ${timerInicial - timer} segundos`,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
                 mostrarAciertos.innerHTML = `Puntaje: ${aciertos}`;
             }
         } 
-        else {
+        else
+        {
             wrong.play();
             setTimeout(() => {
                 tarjeta1.innerHTML = '';
@@ -163,3 +213,22 @@ const destapar = (id) => {
         }
     }
 };
+
+function actualizarSeccion() {
+    const modo = document.getElementById('modo').value;
+    const contenido = document.getElementById('contenido');
+
+    switch(modo) {
+        case "16":
+            contenido.innerHTML = "<p>Contenido para el modo Fácil.</p>";
+            break;
+        case "20":
+            contenido.innerHTML = "<p>Contenido para el modo Medio.</p>";
+            break;
+        case "36":
+            contenido.innerHTML = "<p>Contenido para el modo Difícil.</p>";
+            break;
+        default:
+            contenido.innerHTML = "<p>Selecciona un modo para ver el contenido actualizado.</p>";
+    }
+}

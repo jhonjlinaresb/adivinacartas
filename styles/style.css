@@ -1,21 +1,29 @@
-
-body {
-    background: rgb(131,58,180);
-    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 62%, rgba(69,106,252,1) 94%);
+body 
+{
+    background: linear-gradient(90deg, rgba(25,20,60,1) 0%, rgba(85,40,130,1) 35%, rgba(120,40,160,1) 62%, rgba(70,80,180,1) 85%, rgba(30,30,100,1) 100%);
     font-family: sans-serif;
     color: white;
 }
 
-#pantallaInicial{
+#pantallaInicial
+{
     text-align: center; 
     padding-top: 50 0 0 0;
 }
 
-#juego{
+#modo
+{
+    border: 1px solid rgb(144, 144, 252);
+    border-radius: 5px;
+}
+
+#juego
+{
     display: none;
 }
 
-.inicio{
+.inicio, .volver, .recargar
+{
     background-color: rgb(145, 193, 255);
     border: 5px solid rgb(144, 144, 252);
     border-radius: 20%;
@@ -24,7 +32,15 @@ body {
     width: 20%;
 }
 
-select{
+.volver, .recargar
+{
+    margin-top: 5px;
+    height: 1.6em !important;;
+    width: 1.6em !important;
+}
+
+select
+{
     background-color: transparent;
     border: 0;
     width: 15%;
@@ -35,24 +51,28 @@ select{
     font-weight: bolder;
 }
 
-main {
+main
+{
     width: 730px;
     margin: 30px auto 90px;
     display: flex;
     align-items: center;
 }
 
-.section1 {
+.section1
+{
     background-color: rgba(255,255,255,0.2);
     padding: 0 10px 10px 10px;
     border-radius: 8px;
 }
 
-h1 {
+h1
+{
     text-align: center;
 }
 
-button {
+button
+{
     height: 90px;
     width: 90px;
     font-size: 40px;
@@ -61,7 +81,8 @@ button {
     cursor: pointer;
 }
 
-.section2 {
+.section2
+{
     background-color: rgba(255,255,255,0.2);
     padding: 0 10px 10px 10px;
     width: 250px;
@@ -73,7 +94,8 @@ button {
     box-sizing: border-box;
 }
 
-.estadisticas {
+.estadisticas
+{
     border: 1px solid white;
     height: 105px;
     border-radius: 8px;
@@ -85,17 +107,21 @@ button {
     align-items: center;
 }
 
-footer {
+footer
+{
     background-color: rgba(255,255,255,0.1);
     padding: 10px;
     text-align: center;
     border-radius: 8px;
+    margin-top: 100px;
 }
 
-a {
+a
+{
     text-decoration: none;
 }
 
-img {
+img
+{
     width: 80%;
 }
