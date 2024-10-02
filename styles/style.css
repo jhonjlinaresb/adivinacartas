@@ -6,6 +6,35 @@ body {
     color: white;
 }
 
+#pantallaInicial{
+    text-align: center; 
+    padding-top: 50 0 0 0;
+}
+
+#juego{
+    display: none;
+}
+
+.inicio{
+    background-color: rgb(145, 193, 255);
+    border: 5px solid rgb(144, 144, 252);
+    border-radius: 20%;
+    align-content: center;
+    text-align: center;
+    width: 20%;
+}
+
+select{
+    background-color: transparent;
+    border: 0;
+    width: 15%;
+    height: 40px;
+    align-items: center;
+    text-align: center;
+    font-size: large;
+    font-weight: bolder;
+}
+
 main {
     width: 730px;
     margin: 30px auto 90px;

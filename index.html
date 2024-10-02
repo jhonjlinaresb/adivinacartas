@@ -9,49 +9,38 @@
     <title>Juego de memoria</title>
 </head>
 <body>
-    
-    <main>
-        <section class="section1">
-            <h1>Juego de memoria</h1>
-            <table>
-                <tr>
-                    <td><button id="0" onclick="destapar(0)"></button></td>
-                    <td><button id="1" onclick="destapar(1)"></button></td>
-                    <td><button id="2" onclick="destapar(2)"></button></td>
-                    <td><button id="3" onclick="destapar(3)"></button></td>
-                </tr>
-                <tr>
-                    <td><button id="4" onclick="destapar(4)"></button></td>
-                    <td><button id="5" onclick="destapar(5)"></button></td>
-                    <td><button id="6" onclick="destapar(6)"></button></td>
-                    <td><button id="7" onclick="destapar(7)"></button></td>
-                </tr>
-                <tr>
-                    <td><button id="8" onclick="destapar(8)"></button></td>
-                    <td><button id="9" onclick="destapar(9)"></button></td>
-                    <td><button id="10" onclick="destapar(10)"></button></td>
-                    <td><button id="11" onclick="destapar(11)"></button></td>
-                </tr>
-                <tr>
-                    <td><button id="12" onclick="destapar(12)"></button></td>
-                    <td><button id="13" onclick="destapar(13)"></button></td>
-                    <td><button id="14" onclick="destapar(14)"></button></td>
-                    <td><button id="15" onclick="destapar(15)"></button></td>
-                </tr>
-            </table>
-        </section>
-        <section class="section2">
-            <h2 id="aciertos" class="estadisticas">Puntaje: 0</h2>
-            <h2 id="tiempo" class="estadisticas">Tiempo: 60 segundos</h2>
-            <h2 id="movimientos" class="estadisticas">Movimientos: 0 </h2>
-        </section>
-    </main>
 
-    <footer>
-        <p>Xarxatec Activa</p>
-        <p>Jhon Linares</p>
-        <p>José Olucha</p>
-    </footer>
+    <div id="pantallaInicial">
+        <h1>Bienvenido al Juego de Memoria</h1>
+        <p>Elige el modo de juego:</p>
+        <select id="modo">
+            <option value="16">Fácil</option>
+            <option value="20">Medio</option>
+            <option value="36">Difícil</option>
+        </select>
+        <p>
+            <button class="inicio" onclick="seleccionarModo()">Iniciar Juego</button>
+        </p>
+    </div>
+
+    <div id="juego">
+        <main>
+            <section class="section1">
+                <h2>Juego de memoria</h2>
+                <div id="tablero"></div>
+            </section>
+            <section class="section2">
+                <h2 id="aciertos" class="estadisticas">Puntaje: 0</h2>
+                <h2 id="tiempo" class="estadisticas">Tiempo: 60 segundos</h2>
+                <h2 id="movimientos" class="estadisticas">Movimientos: 0 </h2>
+            </section>
+        </main>
+        <footer>
+            <p>Xarxatec Activa</p>
+            <p>Jhon Linares</p>
+            <p>José Olucha</p>
+        </footer>
+    </div>
 
     <script src="scripts/main.js"></script>
     <script src="scripts/sweetalert.js"></script>
