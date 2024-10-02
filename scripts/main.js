@@ -88,7 +88,6 @@ const iniciarJuego = (modo) => {
     }
 };
 
-// Esto es lo que más me ha costado... casi 3 horas para entenderlo, es una función para crear el tablero dinámicamente, según el número de tarjetas que tenga el modo que se haya seleccionado
 const generarTablero = (totalTarjetas) => {
     let filas = Math.ceil(Math.sqrt(totalTarjetas));
     let contenido = '<table>';
@@ -157,23 +156,19 @@ const destapar = (id) => {
 
     if (tarjetasDestapadas == 1)
     {
-        //mostrar primer numero
         tarjeta1 = document.getElementById(id);
         primerResultado = numeroTarjetas[id];
         clickAudio.play();
         tarjeta1.innerHTML = `<img src="img/${primerResultado}.png" alt="${primerResultado}">`;
 
-        //desahabilitar la tarjeta
         tarjeta1.disabled = true;
     } 
     else if (tarjetasDestapadas == 2)
     {
-        //mostrar segundo numero
         tarjeta2 = document.getElementById(id);
         segundoResultado = numeroTarjetas[id];
         tarjeta2.innerHTML = `<img src="img/${segundoResultado}.png" alt="${segundoResultado}">`;
 
-        //desahabilitar la tarjeta
         tarjeta2.disabled = true;
 
         movimientos++;
