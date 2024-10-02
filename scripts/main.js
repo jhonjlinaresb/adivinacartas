@@ -116,19 +116,19 @@ const destapar = (id) => {
     tarjetasDestapadas++;
     console.log(tarjetasDestapadas);
 
-    if(tarjetasDestapadas == 1 ){
+    if (tarjetasDestapadas == 1) {
         //mostrar primer numero
         tarjeta1 = document.getElementById(id);
-        primerResultado = numero[id];
+        primerResultado = numeroTarjetas[id];
         clickAudio.play();
         tarjeta1.innerHTML = `<img src="img/${primerResultado}.png" alt="${primerResultado}">`;
 
         //desahabilitar la tarjeta
         tarjeta1.disabled = true;
-    }else if (tarjetasDestapadas == 2){
+    } else if (tarjetasDestapadas == 2) {
         //mostrar segundo numero
         tarjeta2 = document.getElementById(id);
-        segundoResultado = numero[id];
+        segundoResultado = numeroTarjetas[id];
         tarjeta2.innerHTML = `<img src="img/${segundoResultado}.png" alt="${segundoResultado}">`;
 
         //desahabilitar la tarjeta
@@ -137,23 +137,23 @@ const destapar = (id) => {
         movimientos++;
         mostrarMovimientos.innerHTML = `Movimientos: ${movimientos}`;
 
-        if(primerResultado == segundoResultado){
+        if (primerResultado == segundoResultado) {
             tarjetasDestapadas = 0;
 
             aciertos++;
             mostrarAciertos.innerHTML = `Puntaje: ${aciertos}`;
             match.play();
 
-            if(aciertos == 8){
+            if (aciertos == numeroTarjetas.length / 2) { // Aqui he tenido que cambiar el método de identificar los aciertos que pusiste porque ahora hay mas niveles, pero vamos que es lo mismito
                 winAudio.play();
                 clearInterval(tiempoRegresivo);
                 alert(`Felicidades, ganaste en ${movimientos} movimientos y ${timerInicial - timer} segundos`);
                 mostrarAciertos.innerHTML = `Puntaje: ${aciertos}`;
             }
-        }
-        else{
+        } 
+        else {
             wrong.play();
-            setTimeout(()=>{
+            setTimeout(() => {
                 tarjeta1.innerHTML = '';
                 tarjeta2.innerHTML = '';
                 tarjeta1.disabled = false;
@@ -162,4 +162,4 @@ const destapar = (id) => {
             }, 800);
         }
     }
-}
+};
